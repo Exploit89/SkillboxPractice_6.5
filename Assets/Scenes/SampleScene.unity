@@ -349,7 +349,7 @@ MonoBehaviour:
     m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 60
-    m_Alignment: 0
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -892,7 +892,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06fc5a2fad11b3544879c032fa38e82b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pin: 020000000100000001000000
   _pinText:
   - {fileID: 439155801}
   - {fileID: 2065673508}
@@ -1351,7 +1350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -1381,7 +1380,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1178755698}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1682161044}
+        m_TargetAssemblyTypeName: EndgameHandler, Assembly-CSharp
+        m_MethodName: RestartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1178755698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1997,6 +2008,7 @@ MonoBehaviour:
   _timer: {fileID: 1955144729}
   _lock: {fileID: 929233309}
   _endgamePanel: {fileID: 128423491}
+  _endgameText: {fileID: 1763915554}
 --- !u!1 &1684942844
 GameObject:
   m_ObjectHideFlags: 0
@@ -2139,7 +2151,7 @@ MonoBehaviour:
     m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 60
-    m_Alignment: 0
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -2314,6 +2326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timer: {fileID: 1955144726}
+  _endgameHandler: {fileID: 1682161044}
 --- !u!1 &2065673506
 GameObject:
   m_ObjectHideFlags: 0

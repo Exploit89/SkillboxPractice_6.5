@@ -4,10 +4,12 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
     [SerializeField] private InputField _timer;
-    private float _startTime = 5;
-    private float _currentTime;
+    [SerializeField] private EndgameHandler _endgameHandler;
+    private float _currentTime = 60;
 
     public float CurrentTime => _currentTime;
+
+    public void Restart() => _currentTime = 60;
 
     private void Update()
     {
@@ -16,7 +18,10 @@ public class Timer : MonoBehaviour
 
     private void UpdateTime()
     {
-        _currentTime = _startTime - Mathf.Round(Time.time);
-        _timer.text = _currentTime.ToString();
+        if (_currentTime >= 0 && _endgameHandler.IsGamePlaying)
+        {
+            _currentTime -= Time.deltaTime;
+            _timer.text = Mathf.Round(_currentTime).ToString();
+        }
     }
 }

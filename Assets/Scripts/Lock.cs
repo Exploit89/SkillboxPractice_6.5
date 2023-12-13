@@ -3,28 +3,44 @@ using UnityEngine.UI;
 
 public class Lock : MonoBehaviour
 {
-    [SerializeField] private int[] _pin = new int[3];
     [SerializeField] private Text[] _pinText = new Text[3];
+
+    private int[] _initialPins = new int[3]{ 2,5,7};
+    private int[] _pins = new int[3];
+
+    public int[] Pins => _pins;
+
+    public void Restart() => InitLock();
+
+    public void MovePins(int[] values)
+    {
+        for (int i = 0; i < _pins.Length; i++)
+        {
+            _pins[i] += values[i];
+            ValidatePin(i);
+            _pinText[i].text = _pins[i].ToString();
+        }
+    }
 
     private void Start()
     {
         InitLock();
     }
 
-    public void MovePins(int[] values)
+    private void InitLock()
     {
-        for (int i = 0; i < _pin.Length; i++)
+        for (int i = 0; i < _initialPins.Length; i++)
         {
-            _pin[i] += values[i];
-            _pinText[i].text = _pin[i].ToString();
+            _pins[i] = _initialPins[i];
+            _pinText[i].text = _initialPins[i].ToString();
         }
     }
 
-    private void InitLock()
+    private void ValidatePin(int index)
     {
-        for (int i = 0; i < _pin.Length; i++)
-        {
-            _pinText[i].text = _pin[i].ToString();
-        }
+        if (_pins[index] < 0)
+            _pins[index] = 0;
+        else if (_pins[index] > 10)
+            _pins[index] = 10;
     }
 }
