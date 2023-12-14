@@ -5,11 +5,15 @@ public class Timer : MonoBehaviour
 {
     [SerializeField] private InputField _timer;
     [SerializeField] private EndgameHandler _endgameHandler;
-    private float _currentTime = 60;
+    private float _startTime = 60;
+    private float _currentTime;
 
-    public float CurrentTime => _currentTime;
+    public void Restart() => _currentTime = _startTime;
 
-    public void Restart() => _currentTime = 60;
+    private void Start()
+    {
+        Restart();
+    }
 
     private void Update()
     {
@@ -22,6 +26,10 @@ public class Timer : MonoBehaviour
         {
             _currentTime -= Time.deltaTime;
             _timer.text = Mathf.Round(_currentTime).ToString();
+        }
+        else if (_currentTime == 0)
+        {
+            _endgameHandler.GameLose();
         }
     }
 }

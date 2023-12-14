@@ -4,13 +4,13 @@ using UnityEngine.UI;
 public class Lock : MonoBehaviour
 {
     [SerializeField] private Text[] _pinText = new Text[3];
+    [SerializeField] private EndgameHandler _endGameHandler;
 
-    private int[] _initialPins = new int[3]{ 2,5,7};
+    private int[] _initialPins = new int[3] { 2, 5, 7 };
+    private int[] _winState = new int[3] { 5, 5, 5 };
     private int[] _pins = new int[3];
-
-    public int[] Pins => _pins;
-
-    public void Restart() => InitLock();
+    private int _maxPinValue = 10;
+    private int _minPinValue = 0;
 
     public void MovePins(int[] values)
     {
@@ -21,13 +21,7 @@ public class Lock : MonoBehaviour
             _pinText[i].text = _pins[i].ToString();
         }
     }
-
-    private void Start()
-    {
-        InitLock();
-    }
-
-    private void InitLock()
+    public void InitLock()
     {
         for (int i = 0; i < _initialPins.Length; i++)
         {
@@ -36,11 +30,33 @@ public class Lock : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        InitLock();
+    }
+
+    private void Update()
+    {
+        for (var i = 0; i < _winState.Length; i++)
+        {
+            if (_pins[i] == _winState[i])
+            {
+                if (i == _pins.Length - 1)
+                {
+                    _endGameHandler.GameWin();
+                }
+                continue;
+            }
+            else
+                break;
+        }
+    }
+
     private void ValidatePin(int index)
     {
-        if (_pins[index] < 0)
-            _pins[index] = 0;
-        else if (_pins[index] > 10)
-            _pins[index] = 10;
+        if (_pins[index] < _minPinValue)
+            _pins[index] = _minPinValue;
+        else if (_pins[index] > _maxPinValue)
+            _pins[index] = _maxPinValue;
     }
 }

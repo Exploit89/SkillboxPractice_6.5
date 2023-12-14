@@ -9,50 +9,28 @@ public class EndgameHandler : MonoBehaviour
     [SerializeField] private Text _endgameText;
 
     private bool _isGamePlaying = true;
-    private int[] _winState = new int[3] { 5, 5, 5 };
 
     public bool IsGamePlaying => _isGamePlaying;
 
     public void RestartGame()
     {
         _endgamePanel.SetActive(false);
-        _lock.Restart();
+        _lock.InitLock();
         _isGamePlaying = true;
         _timer.Restart();
     }
 
-    private void Update()
+    public void GameLose()
     {
-        if (_isGamePlaying)
-        {
-            RefreshState();
-        }
+        _endgameText.text = "Вы проиграли!";
+        _endgamePanel.SetActive(true);
+        _isGamePlaying = false;
     }
 
-    private void RefreshState()
+    public void GameWin()
     {
-        if (Mathf.Round(_timer.CurrentTime) == 0)
-        {
-            _endgameText.text = "Вы проиграли!";
-            _endgamePanel.SetActive(true);
-            _isGamePlaying = false;
-        }
-
-
-        for (var i = 0; i < _winState.Length; i++)
-        {
-            if (_lock.Pins[i] == _winState[i])
-            {
-                if (i == _lock.Pins.Length - 1)
-                {
-                    _endgameText.text = "Вы победили!";
-                    _endgamePanel.SetActive(true);
-                    _isGamePlaying = false;
-                }
-                continue;
-            }
-            else
-                break;
-        }
+        _endgameText.text = "Вы победили!";
+        _endgamePanel.SetActive(true);
+        _isGamePlaying = false;
     }
 }
